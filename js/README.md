@@ -6,7 +6,7 @@ A JavaScript utility that provides text processing routines for post content (fo
 
 Install it with: `npm install @micro-text/text-js`
 
-The `micro.txt` namespace is exported, making it available as such:
+The `micro` namespace is exported, making it available as such:
 
 ``` js
 var micro = require('@micro-text/text-js')
@@ -16,19 +16,19 @@ micro.autoLink(micro.htmlEscape('#hello < @world >'))
 ## Extraction Examples
 
     // basic extraction
-    var usernames = micro.txt.extractMentions("Mentioning @vincent and @james")
+    var usernames = micro.extractMentions("Mentioning @vincent and @james")
     // usernames == ["vincent", "james"]
 
 ## Auto-linking Examples
 
-    micro.txt.autoLink("link @user, please #request");
+    micro.autoLink("link @user, please #request");
 
-    micro.txt.autoLink("link @user, and expand url... http://sq.co/0JG5Mcq", {
+    micro.autoLink("link @user, and expand url... http://sq.co/0JG5Mcq", {
         urlEntities: [
             {
               "url": "http://sq.co/0JG5Mcq",
               "display_url": "blog.square.com/2022/05/square…",
-              "expanded_url": "http://blog.square.com/2022/05/square-for-mac-update",
+              "expanded_url": "http://blog.square.com/2022/05/square-is-online",
               "indices": [
                 30,
                 48
@@ -49,7 +49,7 @@ micro.autoLink(micro.htmlEscape('#hello < @world >'))
 
 ```js
 var content = "This is a test post";
-micro.txt.parseText(content);
+micro.parseText(content);
 /* Returns:
   {
     weightedLength: 20,
