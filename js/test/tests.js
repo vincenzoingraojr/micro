@@ -14,7 +14,7 @@ test("micro.txt.htmlEscape", function() {
     ["&<>\"", "&amp;&lt;&gt;&quot;"],
     ["<div>", "&lt;div&gt;"],
     ["a&b", "a&amp;b"],
-    ["<a href=\"https://square.com\" target=\"_blank\">micro & friends</a>", "&lt;a href=&quot;https://square.com&quot; target=&quot;_blank&quot;&gt;micro &amp; friends&lt;/a&gt;"],
+    ["<a href=\"https://square.net\" target=\"_blank\">micro & friends</a>", "&lt;a href=&quot;https://square.net&quot; target=&quot;_blank&quot;&gt;micro &amp; friends&lt;/a&gt;"],
     ["&amp;", "&amp;amp;"],
     [undefined, undefined, "calling with undefined will return input"]
   ];
@@ -54,13 +54,13 @@ test("micro.txt.extract", function() {
   micro.txt.modifyIndicesFromUnicodeToUTF16(text, extracted);
   deepEqual(extracted, [{screenName:"mention", listSlug:"", indices:[3, 11]}, {screenName:"mention", listSlug:"", indices:[15, 23]}], "Mention w/ Supplementary character, UTF-16 indices");
 
-  text = "\uD801\uDC00 http://square.com \uD801\uDC00 http://test.com";
+  text = "\uD801\uDC00 http://square.net \uD801\uDC00 http://test.com";
   extracted = micro.txt.extractUrlsWithIndices(text);
-  deepEqual(extracted, [{url:"http://square.com", indices:[3, 21]}, {url:"http://test.com", indices:[25, 40]}], "URL w/ Supplementary character, UTF-16 indices");
+  deepEqual(extracted, [{url:"http://square.net", indices:[3, 21]}, {url:"http://test.com", indices:[25, 40]}], "URL w/ Supplementary character, UTF-16 indices");
   micro.txt.modifyIndicesFromUTF16ToUnicode(text, extracted);
-  deepEqual(extracted, [{url:"http://square.com", indices:[2, 20]}, {url:"http://test.com", indices:[23, 38]}], "URL w/ Supplementary character, Unicode indices");
+  deepEqual(extracted, [{url:"http://square.net", indices:[2, 20]}, {url:"http://test.com", indices:[23, 38]}], "URL w/ Supplementary character, Unicode indices");
   micro.txt.modifyIndicesFromUnicodeToUTF16(text, extracted);
-  deepEqual(extracted, [{url:"http://square.com", indices:[3, 21]}, {url:"http://test.com", indices:[25, 40]}], "URL w/ Supplementary character, UTF-16 indices");
+  deepEqual(extracted, [{url:"http://square.net", indices:[3, 21]}, {url:"http://test.com", indices:[25, 40]}], "URL w/ Supplementary character, UTF-16 indices");
 
   var testCases = [
     {text:"abc", indices:[[0,3]], unicode_indices:[[0,3]]},
@@ -103,23 +103,23 @@ test("micro.txt.extract", function() {
 
 test("micro.txt.autolink", function() {
   // Username Overrides
-  ok(micro.txt.autoLink("@tw", { symbolTag: "s" }).match(/<s>@<\/s><a[^>]+>tw<\/a>/), "Apply symbolTag to @username");
-  ok(!micro.txt.autoLink("@tw", { symbolTag: "s" }).match(/symbolTag/i), "Do not include symbolTag attribute");
-  ok(micro.txt.autoLink("@tw", { textWithSymbolTag: "b" }).match(/@<a[^>]+><b>tw<\/b><\/a>/), "Apply textWithSymbolTag to @username");
-  ok(!micro.txt.autoLink("@tw", { textWithSymbolTag: "b" }).match(/textWithSymbolTag/i), "Do not include textWithSymbolTag attribute");
-  ok(micro.txt.autoLink("@tw", { symbolTag: "s", textWithSymbolTag: "b" }).match(/<s>@<\/s><a[^>]+><b>tw<\/b><\/a>/), "Apply symbolTag and textWithSymbolTag to @username");
-  deepEqual(micro.txt.autoLink("@tw", { usernameIncludeSymbol: true }), "<a class=\"micro-url username\" href=\"https://square.com/tw\" data-screen-name=\"tw\" rel=\"nofollow\">@tw</a>",
+  ok(micro.txt.autoLink("@sq", { symbolTag: "s" }).match(/<s>@<\/s><a[^>]+>sq<\/a>/), "Apply symbolTag to @username");
+  ok(!micro.txt.autoLink("@sq", { symbolTag: "s" }).match(/symbolTag/i), "Do not include symbolTag attribute");
+  ok(micro.txt.autoLink("@sq", { textWithSymbolTag: "b" }).match(/@<a[^>]+><b>tw<\/b><\/a>/), "Apply textWithSymbolTag to @username");
+  ok(!micro.txt.autoLink("@sq", { textWithSymbolTag: "b" }).match(/textWithSymbolTag/i), "Do not include textWithSymbolTag attribute");
+  ok(micro.txt.autoLink("@sq", { symbolTag: "s", textWithSymbolTag: "b" }).match(/<s>@<\/s><a[^>]+><b>tw<\/b><\/a>/), "Apply symbolTag and textWithSymbolTag to @username");
+  deepEqual(micro.txt.autoLink("@sq", { usernameIncludeSymbol: true }), "<a class=\"micro-url username\" href=\"https://square.net/sq\" data-screen-name=\"sq\" rel=\"nofollow\">@sq</a>",
       "Include @ in the autolinked username");
   ok(!micro.txt.autoLink("foo http://example.com", { usernameClass: 'custom-user' }).match(/custom-user/), "Override usernameClass should not be applied to URL");
 
   // List Overrides
-  ok(micro.txt.autoLink("@tw/somelist", { symbolTag: "s" }).match(/<s>@<\/s><a[^>]+>tw\/somelist<\/a>/), "Apply symbolTag to list");
-  ok(micro.txt.autoLink("@tw/somelist", { textWithSymbolTag: "b" }).match(/@<a[^>]+><b>tw\/somelist<\/b><\/a>/), "apply textWithSymbolTag to list");
-  ok(micro.txt.autoLink("@tw/somelist", { symbolTag: "s", textWithSymbolTag: "b" }).match(/<s>@<\/s><a[^>]+><b>tw\/somelist<\/b><\/a>/), "apply symbolTag and textWithSymbolTag to list");
-  deepEqual(micro.txt.autoLink("@tw/somelist", { usernameIncludeSymbol: true }), "<a class=\"micro-url list-slug\" href=\"https://square.com/tw/somelist\" rel=\"nofollow\">@tw/somelist</a>",
+  ok(micro.txt.autoLink("@sq/somelist", { symbolTag: "s" }).match(/<s>@<\/s><a[^>]+>tw\/somelist<\/a>/), "Apply symbolTag to list");
+  ok(micro.txt.autoLink("@sq/somelist", { textWithSymbolTag: "b" }).match(/@<a[^>]+><b>tw\/somelist<\/b><\/a>/), "apply textWithSymbolTag to list");
+  ok(micro.txt.autoLink("@sq/somelist", { symbolTag: "s", textWithSymbolTag: "b" }).match(/<s>@<\/s><a[^>]+><b>tw\/somelist<\/b><\/a>/), "apply symbolTag and textWithSymbolTag to list");
+  deepEqual(micro.txt.autoLink("@sq/somelist", { usernameIncludeSymbol: true }), "<a class=\"micro-url list-slug\" href=\"https://square.net/sq/somelist\" rel=\"nofollow\">@sq/somelist</a>",
       "Include @ in the autolinked list");
-  ok(micro.txt.autoLink("foo @tw/somelist", { listClass: 'custom-list' }).match(/custom-list/), "Override listClass");
-  ok(!micro.txt.autoLink("foo @tw/somelist", { usernameClass: 'custom-user' }).match(/custom-user/), "Override usernameClass should not be applied to a List");
+  ok(micro.txt.autoLink("foo @sq/somelist", { listClass: 'custom-list' }).match(/custom-list/), "Override listClass");
+  ok(!micro.txt.autoLink("foo @sq/somelist", { usernameClass: 'custom-user' }).match(/custom-user/), "Override usernameClass should not be applied to a List");
 
   // Hashtag Overrides
   ok(micro.txt.autoLink("#hi", { symbolTag: "s" }).match(/<a[^>]+><s>#<\/s>hi<\/a>/), "Apply symbolTag to hash");
@@ -129,13 +129,13 @@ test("micro.txt.autolink", function() {
   // htmlEscapeNonEntities
   deepEqual(micro.txt.autoLink("&<>\"'"), "&<>\"'", "Don't escape non-entities by default");
   deepEqual(micro.txt.autoLink("&<>\"'", { htmlEscapeNonEntities: true } ), "&amp;&lt;&gt;&quot;&#39;", "Escape non-entities");
-  deepEqual(micro.txt.autoLink("& http://square.com/?a&b &", { htmlEscapeNonEntities: true }),
-      "&amp; <a href=\"http://square.com/?a&amp;b\" rel=\"nofollow\">http://square.com/?a&amp;b</a> &amp;",
+  deepEqual(micro.txt.autoLink("& http://square.net/?a&b &", { htmlEscapeNonEntities: true }),
+      "&amp; <a href=\"http://square.net/?a&amp;b\" rel=\"nofollow\">http://square.net/?a&amp;b</a> &amp;",
       "Escape non-entity text before and after a link while also escaping the link href and link text");
 
   // test urlClass
-  deepEqual(micro.txt.autoLink("http://square.com"), "<a href=\"http://square.com\" rel=\"nofollow\">http://square.com</a>", "AutoLink without urlClass");
-  deepEqual(micro.txt.autoLink("http://square.com", {urlClass: "testClass"}), "<a href=\"http://square.com\" class=\"testClass\" rel=\"nofollow\">http://square.com</a>", "autoLink with urlClass");
+  deepEqual(micro.txt.autoLink("http://square.net"), "<a href=\"http://square.net\" rel=\"nofollow\">http://square.net</a>", "AutoLink without urlClass");
+  deepEqual(micro.txt.autoLink("http://square.net", {urlClass: "testClass"}), "<a href=\"http://square.net\" class=\"testClass\" rel=\"nofollow\">http://square.net</a>", "autoLink with urlClass");
   ok(!micro.txt.autoLink("#hash @tw", {urlClass: "testClass"}).match(/class=\"testClass\"/), "urlClass won't be used for hashtag and @mention auto-links");
 
   // test urlTarget
@@ -151,9 +151,9 @@ test("micro.txt.autolink", function() {
   ok(!autoLinkResult.match(/<a[^>]+username[^>]+dummy-hash-attr=\"test\"[^>]*>/), "linkAttributeBlock should not be applied to mention");
   ok(!autoLinkResult.match(/linkAttributeBlock/i), "linkAttributeBlock should not appear in HTML");
 
-  autoLinkResult = micro.txt.autoLink("@mention http://square.com/", {linkAttributeBlock: function(entity, attributes) {if (entity.url) attributes["dummy-url-attr"] = entity.url;}});
+  autoLinkResult = micro.txt.autoLink("@mention http://square.net/", {linkAttributeBlock: function(entity, attributes) {if (entity.url) attributes["dummy-url-attr"] = entity.url;}});
   ok(!autoLinkResult.match(/<a[^>]+username[^>]+dummy-hash-attr=\"test\"[^>]*>/), "linkAttributeBlock should not be applied to mention");
-  ok(autoLinkResult.match(/<a[^>]+dummy-url-attr=\"http:\/\/square.com\/\"/), "linkAttributeBlock should be applied to URL");
+  ok(autoLinkResult.match(/<a[^>]+dummy-url-attr=\"http:\/\/square.net\/\"/), "linkAttributeBlock should be applied to URL");
 
   // test targetBlank
   ok(!micro.txt.autoLink("#hash @mention").match(/target="_blank"/), "target=\"blank\" attribute should not be added to link");
@@ -179,8 +179,8 @@ test("micro.txt.autolink", function() {
   ok(autoLinkResult.match(/<a[^>]+>pre_<s>@<\/s><b>mention<\/b>_post<\/a>/), "linkTextBlock should modify a username link text");
 
   // extractUrlsWithoutProtocol (the default mode of extractEntitiesWithIndices)
-  deepEqual(micro.txt.autoLinkEntities("square.com", micro.txt.extractEntitiesWithIndices("square.com")),
-      "<a href=\"http://square.com\" rel=\"nofollow\">square.com</a>", "AutoLink with extractUrlsWithoutProtocol");
+  deepEqual(micro.txt.autoLinkEntities("square.net", micro.txt.extractEntitiesWithIndices("square.net")),
+      "<a href=\"http://square.net\" rel=\"nofollow\">square.net</a>", "AutoLink with extractUrlsWithoutProtocol");
   deepEqual(micro.txt.autoLinkEntities("square.JP", micro.txt.extractEntitiesWithIndices("square.JP")),
       "<a href=\"http://square.JP\" rel=\"nofollow\">square.JP</a>", "AutoLink with extractUrlsWithoutProtocol with ccTLD domains");
 
@@ -189,8 +189,8 @@ test("micro.txt.autolink", function() {
     invisibleTagAttrs: "style='font-size:0'",
     urlEntities: [{
       "url": "http://sq.co/0JG5Mcq",
-      "display_url": "blog.square.com/2022/05/square…",
-      "expanded_url": "http://blog.square.com/2022/05/square-for-mac-update",
+      "display_url": "blog.square.net/2022/05/square…",
+      "expanded_url": "http://blog.square.net/2022/05/square-for-mac-update",
       "indices": [
         84,
         103
@@ -198,7 +198,7 @@ test("micro.txt.autolink", function() {
     }]
   });
   ok(autoLinkResult.match(/<a href="http:\/\/sq.co\/0JG5Mcq"[^>]+>/), 'Use t.co URL as link target');
-  ok(autoLinkResult.match(/>blog.square.com\/2011\/05\/square.*…</), 'Use display url from url entities');
+  ok(autoLinkResult.match(/>blog.square.net\/2011\/05\/square.*…</), 'Use display url from url entities');
   ok(autoLinkResult.match(/r-for-mac-update.html</), 'Include the tail of expanded_url');
   ok(autoLinkResult.match(/>http:\/\//), 'Include the head of expanded_url');
   ok(autoLinkResult.match(/span style='font-size:0'/), 'Obey invisibleTagAttrs');
@@ -206,13 +206,13 @@ test("micro.txt.autolink", function() {
   autoLinkResult = micro.txt.autoLinkEntities("http://sq.co/0JG5Mcq",
     [{
       "url": "http://sq.co/0JG5Mcq",
-      "display_url": "blog.square.com/2022/05/square…",
-      "expanded_url": "http://blog.square.com/2022/05/square-for-mac-update",
+      "display_url": "blog.square.net/2022/05/square…",
+      "expanded_url": "http://blog.square.net/2022/05/square-for-mac-update",
       "indices": [0, 19]
     }]
   );
   ok(autoLinkResult.match(/<a href="http:\/\/sq.co\/0JG5Mcq"[^>]+>/), 'autoLinkEntities: Use t.co URL as link target');
-  ok(autoLinkResult.match(/>blog.square.com\/2011\/05\/square.*…</), 'autoLinkEntities: Use display url from entities');
+  ok(autoLinkResult.match(/>blog.square.net\/2011\/05\/square.*…</), 'autoLinkEntities: Use display url from entities');
   ok(autoLinkResult.match(/r-for-mac-update.html</), 'autoLinkEntities: Include the tail of expanded_url');
   ok(autoLinkResult.match(/>http:\/\//), 'autoLinkEntities: Include the head of expanded_url');
 
@@ -222,14 +222,14 @@ test("micro.txt.autolink", function() {
   document.body.appendChild(div);
   var range = document.createRange();
   range.selectNode(div);
-  ok(range.toString().match(/\shttp:\/\/blog.square.com\/2022\/05\/square-for-mac-update.html\s…/), 'Selection copies expanded_url');
+  ok(range.toString().match(/\shttp:\/\/blog.square.net\/2022\/05\/square-for-mac-update.html\s…/), 'Selection copies expanded_url');
   document.body.removeChild(div);
 
   var picSquare = micro.txt.autoLink("http://sq.co/0JG5Mcq", {
     urlEntities: [{
       "url": "http://sq.co/0JG5Mcq",
-      "display_url": "pic.square.com/xyz",
-      "expanded_url": "http://square.com/foo/statuses/123/photo/1",
+      "display_url": "pic.square.net/xyz",
+      "expanded_url": "http://square.net/foo/statuses/123/photo/1",
       "indices": [
         84,
         103
@@ -237,8 +237,8 @@ test("micro.txt.autolink", function() {
     }]
   });
   ok(picSquare.match(/<a href="http:\/\/sq.co\/0JG5Mcq"[^>]+>/), 'Use t.co URL as link target');
-  ok(picSquare.match(/>pic.square.com\/xyz</), 'Use display url from url entities');
-  ok(picSquare.match(/title="http:\/\/square.com\/foo\/statuses\/123\/photo\/1"/), 'Use expanded url as title');
+  ok(picSquare.match(/>pic.square.net\/xyz</), 'Use display url from url entities');
+  ok(picSquare.match(/title="http:\/\/square.net\/foo\/statuses\/123\/photo\/1"/), 'Use expanded url as title');
   ok(!picSquare.match(/foo\/statuses</), 'Don\'t include the tail of expanded_url');
 
   // urls with invalid character
@@ -247,40 +247,40 @@ test("micro.txt.autolink", function() {
     equal(micro.txt.extractUrls("http://squ" + invalidChars[i] + "re.com").length, 0, 'Should not extract URL with invalid character');
   }
 
-  deepEqual(micro.txt.autoLink("\uD801\uDC00 #hashtag \uD801\uDC00 @mention \uD801\uDC00 http://square.com"),
-      "\uD801\uDC00 <a href=\"https://square.com/search?q=%23hashtag\" title=\"#hashtag\" class=\"micro-url hashtag\" rel=\"nofollow\">#hashtag</a> \uD801\uDC00 @<a class=\"micro-url username\" href=\"https://square.com/mention\" data-screen-name=\"mention\" rel=\"nofollow\">mention</a> \uD801\uDC00 <a href=\"http://square.com\" rel=\"nofollow\">http://square.com</a>",
+  deepEqual(micro.txt.autoLink("\uD801\uDC00 #hashtag \uD801\uDC00 @mention \uD801\uDC00 http://square.net"),
+      "\uD801\uDC00 <a href=\"https://square.net/search?q=%23hashtag\" title=\"#hashtag\" class=\"micro-url hashtag\" rel=\"nofollow\">#hashtag</a> \uD801\uDC00 @<a class=\"micro-url username\" href=\"https://square.net/mention\" data-screen-name=\"mention\" rel=\"nofollow\">mention</a> \uD801\uDC00 <a href=\"http://square.net\" rel=\"nofollow\">http://square.net</a>",
       "Autolink hashtag/mentionURL w/ Supplementary character");
 
   // handle the @ character in the URL
-  var testUrl = "http://square.com?var=@val";
+  var testUrl = "http://square.net?var=@val";
   deepEqual(micro.txt.autoLink(testUrl),  "<a href=\"" + testUrl + "\" rel=\"nofollow\">" + testUrl + "</a>", "Autolink with special char params");
   // handle the @ character in the URL and an @mention at the deepEqual time
-  deepEqual(micro.txt.autoLink(testUrl + " @mention"),  "<a href=\"" + testUrl + "\" rel=\"nofollow\">" + testUrl + "</a> @<a class=\"micro-url username\" href=\"https://square.com/mention\" data-screen-name=\"mention\" rel=\"nofollow\">mention</a>", "Autolink with special char params and mentions");
+  deepEqual(micro.txt.autoLink(testUrl + " @mention"),  "<a href=\"" + testUrl + "\" rel=\"nofollow\">" + testUrl + "</a> @<a class=\"micro-url username\" href=\"https://square.net/mention\" data-screen-name=\"mention\" rel=\"nofollow\">mention</a>", "Autolink with special char params and mentions");
 });
 
 test("micro.txt.linkTextWithEntity", function() {
   var result = micro.txt.linkTextWithEntity({
     "url": "http://sq.co/abcde",
-    "display_url": "square.com",
-    "expanded_url": "http://square.com/"},
+    "display_url": "square.net",
+    "expanded_url": "http://square.net/"},
     {invisibleTagAttrs: "class='invisible'"});
   deepEqual(result,
-      "<span class='sqco-ellipsis'><span class='invisible'>&nbsp;</span></span><span class='invisible'>http://</span><span class='js-display-url'>square.com</span><span class='invisible'>/</span><span class='sqco-ellipsis'><span class='invisible'>&nbsp;</span></span>",
+      "<span class='sqco-ellipsis'><span class='invisible'>&nbsp;</span></span><span class='invisible'>http://</span><span class='js-display-url'>square.net</span><span class='invisible'>/</span><span class='sqco-ellipsis'><span class='invisible'>&nbsp;</span></span>",
       "Entire display_url is in expanded_url");
 
   result = micro.txt.linkTextWithEntity({
     "url": "http://sq.co/abcde",
-    "display_url": "square.com…",
-    "expanded_url": "http://square.com/abcdefg"},
+    "display_url": "square.net…",
+    "expanded_url": "http://square.net/abcdefg"},
     {invisibleTagAttrs: "class='invisible'"});
   deepEqual(result,
-      "<span class='sqco-ellipsis'><span class='invisible'>&nbsp;</span></span><span class='invisible'>http://</span><span class='js-display-url'>square.com</span><span class='invisible'>/abcdefg</span><span class='sqco-ellipsis'><span class='invisible'>&nbsp;</span>…</span>",
+      "<span class='sqco-ellipsis'><span class='invisible'>&nbsp;</span></span><span class='invisible'>http://</span><span class='js-display-url'>square.net</span><span class='invisible'>/abcdefg</span><span class='sqco-ellipsis'><span class='invisible'>&nbsp;</span>…</span>",
       "display_url ends with …");
 
   result = micro.txt.linkTextWithEntity({
     "url": "http://sq.co/abcde",
     "display_url": "…tter.com/abcdefg",
-    "expanded_url": "http://square.com/abcdefg"},
+    "expanded_url": "http://square.net/abcdefg"},
     {invisibleTagAttrs: "class='invisible'"});
   deepEqual(result,
       "<span class='sqco-ellipsis'>…<span class='invisible'>&nbsp;</span></span><span class='invisible'>http://twi</span><span class='js-display-url'>tter.com/abcdefg</span><span class='invisible'></span><span class='sqco-ellipsis'><span class='invisible'>&nbsp;</span></span>",
@@ -288,11 +288,11 @@ test("micro.txt.linkTextWithEntity", function() {
 
   result = micro.txt.linkTextWithEntity({
     "url": "http://sq.co/abcde",
-    "display_url": "pic.square.com/xyz",
-    "expanded_url": "http://square.com/foo/statuses/123/photo/1"},
+    "display_url": "pic.square.net/xyz",
+    "expanded_url": "http://square.net/foo/statuses/123/photo/1"},
     {invisibleTagAttrs: "class='invisible'"});
   deepEqual(result,
-      "pic.square.com/xyz",
+      "pic.square.net/xyz",
       "display_url and expanded_url are on different domains");
 });
 

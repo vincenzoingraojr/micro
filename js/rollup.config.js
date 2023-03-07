@@ -6,6 +6,7 @@ import babel from 'rollup-plugin-babel';
 import commonjs from 'rollup-plugin-commonjs';
 import license from 'rollup-plugin-license';
 import resolve from 'rollup-plugin-node-resolve';
+import typescript from '@rollup/plugin-typescript';
 
 const banner = `/*!
  * <%= pkg.name %> <%= pkg.version %>
@@ -31,6 +32,9 @@ export default {
     commonjs(),
     license({
       banner: banner
+    }),
+    typescript({
+      tsconfig: 'tsconfig.rollup.json'
     })
   ]
 };

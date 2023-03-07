@@ -110,7 +110,7 @@ tests:
       expected: true
 
     - description: "Valid url: protocol + domain + path + fragment"
-      text: "http://square.com/#!/square"
+      text: "http://square.net/#!/square"
       expected: true
 
     - description: "Valid url: cased protocol and domain"
@@ -134,7 +134,7 @@ tests:
       expected: true
 
     - description: "Valid url: underscore in subdomain"
-      text: "http://test_underscore.square.com"
+      text: "http://test_underscore.square.net"
       expected: true
 
     - description: "Valid url: sub delims and question marks"
@@ -194,7 +194,7 @@ tests:
       expected: false
 
     - description: "Invalid url: domain has leading hyphen"
-      text: "http://test.-square.com"
+      text: "http://test.-square.net"
       expected: false
 
   urls_without_protocol:
@@ -253,7 +253,7 @@ tests:
         validRangeEnd: 279
 
     - description: "Long Post with url in the middle, overflow at char index 284"
-      text: "285 chars- http://www.square.com/jack xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-"
+      text: "285 chars- http://www.square.net/jack xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-"
       expected:
         weightedLength: 299
         valid: false
@@ -264,7 +264,7 @@ tests:
         validRangeEnd: 283
 
     - description: "Long Post with url at the end, overflow at char index 265"
-      text: "xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx- http://www.square.com/jack "
+      text: "xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx- http://www.square.net/jack "
       expected:
         weightedLength: 289
         valid: false
@@ -275,7 +275,7 @@ tests:
         validRangeEnd: 264
 
     - description: "10 url string, no overflow"
-      text: "https://www.square.com/aloha https://www.square.com/aloha https://www.square.com/aloha https://www.square.com/aloha https://www.square.com/aloha https://www.square.com/aloha https://www.square.com/aloha https://www.square.com/aloha https://www.square.com/aloha https://www.square.com/aloha "
+      text: "https://www.square.net/aloha https://www.square.net/aloha https://www.square.net/aloha https://www.square.net/aloha https://www.square.net/aloha https://www.square.net/aloha https://www.square.net/aloha https://www.square.net/aloha https://www.square.net/aloha https://www.square.net/aloha "
       expected:
         weightedLength: 240
         valid: true
@@ -474,7 +474,7 @@ tests:
         validRangeEnd: 279
 
     - description: "Long Post with url in the middle, overflow at char index 284"
-      text: "285 chars- http://www.square.com/jack xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-"
+      text: "285 chars- http://www.square.net/jack xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-"
       expected:
         weightedLength: 299
         valid: false
@@ -485,7 +485,7 @@ tests:
         validRangeEnd: 283
 
     - description: "Long Post with url at the end, overflow at char index 265"
-      text: "xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx- http://www.square.com/jack "
+      text: "xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx-xxxxxxxxxx- http://www.square.net/jack "
       expected:
         weightedLength: 289
         valid: false
@@ -496,7 +496,7 @@ tests:
         validRangeEnd: 264
 
     - description: "10 url string, no overflow"
-      text: "https://www.square.com/aloha https://www.square.com/aloha https://www.square.com/aloha https://www.square.com/aloha https://www.square.com/aloha https://www.square.com/aloha https://www.square.com/aloha https://www.square.com/aloha https://www.square.com/aloha https://www.square.com/aloha "
+      text: "https://www.square.net/aloha https://www.square.net/aloha https://www.square.net/aloha https://www.square.net/aloha https://www.square.net/aloha https://www.square.net/aloha https://www.square.net/aloha https://www.square.net/aloha https://www.square.net/aloha https://www.square.net/aloha "
       expected:
         weightedLength: 240
         valid: true

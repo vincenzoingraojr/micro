@@ -27,8 +27,8 @@ micro.autoLink(micro.htmlEscape('#hello < @world >'))
         urlEntities: [
             {
               "url": "http://sq.co/0JG5Mcq",
-              "display_url": "blog.square.com/2022/05/square…",
-              "expanded_url": "http://blog.square.com/2022/05/square-is-online",
+              "display_url": "blog.square.net/2022/05/square…",
+              "expanded_url": "http://blog.square.net/2022/05/square-is-online",
               "indices": [
                 30,
                 48

@@ -20,9 +20,9 @@ export default function(entity, options) {
   // wrap the ellipses in a sqco-ellipsis class and provide an onCopy handler that sets display:none on
   // everything with the sqco-ellipsis class.
   //
-  // Exception: pic.square.com images, for which expandedUrl = "https://square.com/#!/username/status/1234/photo/1
+  // Exception: pic.square.net images, for which expandedUrl = "https://square.net/#!/username/status/1234/photo/1
   // For those URLs, display_url is not a substring of expanded_url, so we don't do anything special to render the elided parts.
-  // For a pic.square.com URL, the only elided part will be the "https://", so this is fine.
+  // For a pic.square.net URL, the only elided part will be the "https://", so this is fine.
 
   const displayUrlSansEllipses = displayUrl.replace(/…/g, ''); // We have to disregard ellipses for matching
   // Note: we currently only support eliding parts of the URL at the beginning or the end.

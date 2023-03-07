@@ -41,7 +41,7 @@ tests:
       expected: ["username"]
 
     - description: "DO NOT extract 'http' in '@http://' as username"
-      text: "@http://square.com"
+      text: "@http://square.net"
       expected: []
 
     - description: "Extract mentions before newline"
@@ -200,7 +200,7 @@ tests:
       expected:
 
     - description: "DO NOT Extract reply when followed by URL"
-      text: "@http://square.com"
+      text: "@http://square.net"
       expected:
 
   urls:
@@ -232,9 +232,9 @@ tests:
       text: "text http://google.com/#search?q=iphone%20-filter%3Alinks"
       expected: ["http://google.com/#search?q=iphone%20-filter%3Alinks"]
 
-    - description: "Extract valid URL: http://square.com/#search?q=iphone%20-filter%3Alinks"
-      text: "text http://square.com/#search?q=iphone%20-filter%3Alinks"
-      expected: ["http://square.com/#search?q=iphone%20-filter%3Alinks"]
+    - description: "Extract valid URL: http://square.net/#search?q=iphone%20-filter%3Alinks"
+      text: "text http://square.net/#search?q=iphone%20-filter%3Alinks"
+      expected: ["http://square.net/#search?q=iphone%20-filter%3Alinks"]
 
     - description: "Extract valid URL: http://somedomain.com/index.php?path=/abc/def/"
       text: "text http://somedomain.com/index.php?path=/abc/def/"
@@ -300,9 +300,9 @@ tests:
       text: "text http://tld-too-short.x"
       expected: []
 
-    - description: "DO NOT extract invalid URL with invalid preceding character: (http://square.com"
-      text: "(http://square.com"
-      expected: ["http://square.com"]
+    - description: "DO NOT extract invalid URL with invalid preceding character: (http://square.net"
+      text: "(http://square.net"
+      expected: ["http://square.net"]
 
     - description: "Extract a very long hyphenated sub-domain URL (single letter hyphens)"
       text: "text http://word-and-a-number-8-ftw.domain.com/"
@@ -353,16 +353,16 @@ tests:
       expected: ["example.com/path/index.html", "example.com/path"]
 
     - description: "Extract short URL without protocol surrounded by CJK characters"
-      text: "square.comこれは日本語です。example.com中国語t.co/abcde한국square.com example2.comテストsquare.com/abcde"
-      expected: ["square.com", "example.com", "t.co/abcde", "square.com", "example2.com", "square.com/abcde"]
+      text: "square.netこれは日本語です。example.com中国語t.co/abcde한국square.net example2.comテストsquare.net/abcde"
+      expected: ["square.net", "example.com", "t.co/abcde", "square.net", "example2.com", "square.net/abcde"]
 
     - description: "Extract URLs with and without protocol surrounded by CJK characters"
-      text: "http://square.com/これは日本語です。example.com中国語http://sq.co/abcde한국square.comテストexample2.comテストhttp://square.com/abcde"
-      expected: ["http://square.com/", "example.com", "http://sq.co/abcde", "square.com", "example2.com", "http://square.com/abcde"]
+      text: "http://square.net/これは日本語です。example.com中国語http://sq.co/abcde한국square.netテストexample2.comテストhttp://square.net/abcde"
+      expected: ["http://square.net/", "example.com", "http://sq.co/abcde", "square.net", "example2.com", "http://square.net/abcde"]
 
     - description: "Extract URLs with protocol and path containing Cyrillic characters"
-      text: "Go to http://square.com/Русские_слова"
-      expected: ["http://square.com/Русские_слова"]
+      text: "Go to http://square.net/Русские_слова"
+      expected: ["http://square.net/Русские_слова"]
 
     - description: "Extract non-ASCII host name URLs with protocol, but ignore host names bigger than 63 characters. Also handle exceptions for non-ASCII hostnames longer than 256 characters"
       text: "http://exampleこれは日本語です.com/path/index.html http://あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ.com/path/index.html"
@@ -397,8 +397,8 @@ tests:
       expected: ["example.com/path"]
 
     - description: "Extract URLs with underscores and dashes in the subdomain"
-      text: "test http://sub_domain-dash.square.com"
-      expected: ["http://sub_domain-dash.square.com"]
+      text: "test http://sub_domain-dash.square.net"
+      expected: ["http://sub_domain-dash.square.net"]
 
     - description: "Extract URL with minimum number of valid characters"
       text: "test http://a.b.cd"
@@ -421,15 +421,15 @@ tests:
       expected: ["http://www.bestbuy.com/site/Currie+Technologies+-+Ezip+400+Scooter/9885188.p?id=1218189013070&skuId=9885188"]
 
     - description: "DO NOT extract URLs containing leading dashes in the subdomain"
-      text: "test http://-leadingdash.square.com"
+      text: "test http://-leadingdash.square.net"
       expected: []
 
     - description: "DO NOT extract URLs containing leading dashes in the domain with a subdomain"
-      text: "test http://leadingdash.-square.com"
+      text: "test http://leadingdash.-square.net"
       expected: []
 
     - description: "DO NOT extract URLs containing trailing dashes in the subdomain"
-      text: "test http://trailingdash-.square.com"
+      text: "test http://trailingdash-.square.net"
       expected: []
 
     - description: "DO NOT extract URLs containing trailing dashes in the domain with a subdomain"
@@ -437,15 +437,15 @@ tests:
       expected: []
 
     - description: "DO NOT extract URLs containing leading underscores in the subdomain"
-      text: "test http://_leadingunderscore.square.com"
+      text: "test http://_leadingunderscore.square.net"
       expected: []
 
     - description: "DO NOT extract URLs containing leading underscores in the domain with a subdomain"
-      text: "test http://leadingunderscore._square.com"
+      text: "test http://leadingunderscore._square.net"
       expected: []
 
     - description: "DO NOT extract URLs containing trailing underscores in the subdomain"
-      text: "test http://trailingunderscore_.square.com"
+      text: "test http://trailingunderscore_.square.net"
       expected: []
 
     - description: "DO NOT extract URLs containing trailing underscores in the domain with a subdomain"
@@ -453,7 +453,7 @@ tests:
       expected: []
 
     - description: "DO NOT extract URLs containing leading dashes in the domain name"
-      text: "test http://-square.com"
+      text: "test http://-square.net"
       expected: []
 
     - description: "DO NOT extract URLs containing trailing dashes in the domain name"
@@ -497,8 +497,8 @@ tests:
       expected: ["ELPAÍS.com"]
 
     - description: "DO NOT include period at the end of URL"
-      text: "test http://square.com/."
-      expected: ["http://square.com/"]
+      text: "test http://square.net/."
+      expected: ["http://square.net/"]
 
     - description: "Extract a URL with '?' in fragment"
       text: "http://tn.com.ar/show/00056158/la-estrella-del-certamen-el-turno-de-pamela-anderson?fb_xd_fragment#?=&cb=fe17523f223b7&relation=parent.parent&transport=fragment&type=resize&height=20&ackdata"
@@ -550,11 +550,11 @@ tests:
       expected: ["example.com", "square.みんな"]
 
     - description: "Extract URL before newline"
-      text: "http://square.com\nhttp://example.com\nhttp://example.com/path\nexample.com/path\nit.so\nit.so/abcde"
-      expected: ["http://square.com", "http://example.com", "http://example.com/path", "example.com/path", "it.so", "it.so/abcde"]
+      text: "http://square.net\nhttp://example.com\nhttp://example.com/path\nexample.com/path\nit.so\nit.so/abcde"
+      expected: ["http://square.net", "http://example.com", "http://example.com/path", "example.com/path", "it.so", "it.so/abcde"]
 
     - description: "DO NOT extract URL if preceded by $"
-      text: "$http://square.com $square.com $http://sq.co/abcde $t.co/abcde $t.co $TVI.CA $RBS.CA"
+      text: "$http://square.net $square.net $http://sq.co/abcde $t.co/abcde $t.co $TVI.CA $RBS.CA"
       expected: []
 
     - description: "DO NOT extract .bz2 file name as URL"
@@ -591,35 +591,35 @@ tests:
           indices: [11, 23]
 
     - description: "Extract URLs without protocol surrounded by CJK characters"
-      text: "square.comこれは日本語です。example.com中国語t.co/abcde한국square.com example2.comテストsquare.com/abcde"
+      text: "square.netこれは日本語です。example.com中国語t.co/abcde한국square.net example2.comテストsquare.net/abcde"
       expected:
-        - url: "square.com"
+        - url: "square.net"
           indices: [0, 11]
         - url: "example.com"
           indices: [20, 31]
         - url: "t.co/abcde"
           indices: [34, 44]
-        - url: "square.com"
+        - url: "square.net"
           indices: [46, 57]
         - url: "example2.com"
           indices: [58, 70]
-        - url: "square.com/abcde"
+        - url: "square.net/abcde"
           indices: [73, 90]
 
     - description: "Extract URLs with and without protocol surrounded by CJK characters"
-      text: "http://square.com/これは日本語です。example.com中国語http://sq.co/abcde한국square.comテストexample2.comテストhttp://square.com/abcde"
+      text: "http://square.net/これは日本語です。example.com中国語http://sq.co/abcde한국square.netテストexample2.comテストhttp://square.net/abcde"
       expected:
-        - url: "http://square.com/"
+        - url: "http://square.net/"
           indices: [0, 19]
         - url: "example.com"
           indices: [28, 39]
         - url: "http://sq.co/abcde"
           indices: [42, 59]
-        - url: "square.com"
+        - url: "square.net"
           indices: [61, 72]
         - url: "example2.com"
           indices: [75, 87]
-        - url: "http://square.com/abcde"
+        - url: "http://square.net/abcde"
           indices: [90, 114]
 
     - description: "Extract t.co URLs skipping trailing characters and adjusting indices correctly"
@@ -674,17 +674,17 @@ tests:
 
   urls_with_directional_markers:
     - description: "Extract URLs from RTL text"
-      text: "\U00002066\U0000202Atest abcdef.com پاکستان http://square.com/\U0000202C\U00002069"
+      text: "\U00002066\U0000202Atest abcdef.com پاکستان http://square.net/\U0000202C\U00002069"
       expected:
         - url: "abcdef.com"
           indices: [7, 17]
-        - url: "http://square.com/"
+        - url: "http://square.net/"
           indices: [26, 45]
 
     - description: "Extract URLs from RTL text with embedded directional marks"
-      text: "This is a test \U00002066\U0000202Asquare.com\U0000202C\U00002069 \U00002066\U0000202Ahttp://foobar.پاکستان/\U0000202C\U00002069⁩ قطر فلسطين عمان"
+      text: "This is a test \U00002066\U0000202Asquare.net\U0000202C\U00002069 \U00002066\U0000202Ahttp://foobar.پاکستان/\U0000202C\U00002069⁩ قطر فلسطين عمان"
       expected:
-        - url: "square.com"
+        - url: "square.net"
           indices: [17, 28]
         - url: "http://foobar.پاکستان/"
           indices: [33, 55]
@@ -896,11 +896,11 @@ tests:
       expected: ["hashtag", "hashtag2", "hashtag3"]
 
     - description: "DO NOT extract hashtag when # is followed by URL"
-      text: "#http://square.com #https://square.com"
+      text: "#http://square.net #https://square.net"
       expected: []
 
     - description: "DO NOT extract hashtag if it's a part of URL"
-      text: "http://square.com/#hashtag square.com/#hashtag"
+      text: "http://square.net/#hashtag square.net/#hashtag"
       expected: []
 
     - description: "Extract hashtags with Latin extended characters"

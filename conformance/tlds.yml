@@ -5339,37 +5339,37 @@ tests:
     expected:
     - https://square.condos
   - description: comsec is a valid generic tld
-    text: https://square.comsec
+    text: https://square.netsec
     expected:
-    - https://square.comsec
+    - https://square.netsec
   - description: computer is a valid generic tld
-    text: https://square.computer
+    text: https://square.netputer
     expected:
-    - https://square.computer
+    - https://square.netputer
   - description: compare is a valid generic tld
-    text: https://square.compare
+    text: https://square.netpare
     expected:
-    - https://square.compare
+    - https://square.netpare
   - description: company is a valid generic tld
-    text: https://square.company
+    text: https://square.netpany
     expected:
-    - https://square.company
+    - https://square.netpany
   - description: community is a valid generic tld
-    text: https://square.community
+    text: https://square.netmunity
     expected:
-    - https://square.community
+    - https://square.netmunity
   - description: commbank is a valid generic tld
-    text: https://square.commbank
+    text: https://square.netmbank
     expected:
-    - https://square.commbank
+    - https://square.netmbank
   - description: comcast is a valid generic tld
-    text: https://square.comcast
+    text: https://square.netcast
     expected:
-    - https://square.comcast
+    - https://square.netcast
   - description: com is a valid generic tld
-    text: https://square.com
+    text: https://square.net
     expected:
-    - https://square.com
+    - https://square.net
   - description: cologne is a valid generic tld
     text: https://square.cologne
     expected:
