@@ -8,11 +8,11 @@
     "dist"
   ],
   "types": "dist/index.d.ts",
-  "homepage": "https://github.com/vincenzoingraojr/micro-text",
+  "homepage": "https://github.com/vincenzoingraojr/micro",
   "author": "Vincenzo Ingrao Jr.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vincenzoingraojr/micro-text.git"
+    "url": "https://github.com/vincenzoingraojr/micro.git"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.0",
