@@ -1,27 +1,25 @@
-'use strict';
+const removeLinariaImport = () => ({
+  name: 'remove-linaria-import',
+  visitor: {
+    ImportDeclaration(path) {
+      if (path.node.source && path.node.source.value === 'linaria') {
+        path.remove();
+      }
+    },
+  },
+});
 
-module.exports = api => {
-  return {
-    plugins: [
-      '@babel/plugin-transform-flow-strip-types',
-      '@babel/plugin-transform-runtime',
-      '@babel/plugin-transform-spread',
-      '@babel/plugin-syntax-dynamic-import',
-      '@babel/plugin-proposal-class-properties',
-      '@babel/plugin-proposal-export-namespace-from',
-      '@babel/plugin-proposal-export-default-from',
-      'add-module-exports'
-    ],
-    presets: [
-      [
-        '@babel/preset-env',
-        {
-          useBuiltIns: 'usage',
-          corejs: 2,
-          modules: api.env('commonjs') || api.env('test') ? 'commonjs' : false,
-          forceAllTransforms: api.env('production')
-        }
-      ]
-    ]
-  };
+module.exports = {
+  presets: [
+    //using loose true because of this issue: https://github.com/storybookjs/storybook/issues/12093
+    ['@babel/preset-env', { loose: true }],
+    '@babel/react',
+    '@babel/flow',
+    '@babel/typescript',
+    'linaria/babel',
+  ],
+  plugins: [
+    ['@babel/plugin-proposal-class-properties', { loose: true }],
+    removeLinariaImport,
+  ],
 };
