@@ -1,0 +1,7 @@
+{
+  "name": "micro-text-js",
+  "main": "js/micro-text.js",
+  "ignore": [
+    "conformance/*"
+  ]
+}

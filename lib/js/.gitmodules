@@ -1,0 +1,3 @@
+[submodule "test/micro-text-conformance"]
+	path = test/micro-text-conformance
+	url = git://github.com/vincenzoingraojr/micro-text.git
