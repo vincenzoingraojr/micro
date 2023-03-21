@@ -36,6 +36,7 @@ export interface MentionData {
   link?: string;
   avatar?: string;
   name: string;
+  username: string;
   id?: null | string | number;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [x: string]: any;

@@ -70,6 +70,11 @@ export default function Link(props: LinkProps): ReactElement {
     React.createElement(component, linkProps)
   ) : (
     // eslint-disable-next-line jsx-a11y/anchor-has-content
-    <a {...linkProps} />
+    <a
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+      {...linkProps} 
+    />
   );
 }

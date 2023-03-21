@@ -38,6 +38,9 @@ function MentionLink({
       className={className}
       spellCheck={false}
       data-testid="mentionLink"
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
     >
       {children}
     </a>
@@ -49,7 +52,7 @@ function MentionText({
   className,
 }: SubMentionComponentProps): ReactElement {
   return (
-    <span className={className} spellCheck={false} data-testid="mentionText">
+    <span className={className} spellCheck={false} data-testid="mentionText" onClick={(e) => e.stopPropagation()}>
       {children}
     </span>
   );

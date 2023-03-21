@@ -19,7 +19,10 @@ export default function DefaultEntryComponent(
   return (
     <div {...parentProps}>
       <Avatar mention={mention} theme={theme} />
-      <span className={theme?.mentionSuggestionsEntryText}>{mention.name}</span>
+      <div className={theme?.mentionSuggestionsEntryContainer}>
+        <span className={theme?.mentionSuggestionsEntryText}>{mention.name}</span>
+        <span className={theme?.mentionSuggestionsEntryUsername}>@{mention.username}</span>
+      </div>
     </div>
   );
 }

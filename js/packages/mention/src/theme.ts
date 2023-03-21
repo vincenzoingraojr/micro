@@ -49,7 +49,7 @@ export const defaultTheme: MentionPluginTheme = {
     min-width: 220px;
     max-width: 440px;
     background: #151414;
-    border-radius: 6px;
+    border-radius: 12px;
     box-shadow: 0px 0px 2px #383535;
     cursor: pointer;
     padding-top: 12px;
@@ -74,14 +74,18 @@ export const defaultTheme: MentionPluginTheme = {
     ${entryShared}
   `,
 
+  mentionSuggestionsEntryContainer: css`
+    display: inline-block;
+    margin-left: 12px;
+  `,
+
   mentionSuggestionsEntryFocused: css`
     ${entryShared}
     background-color: rgba(56, 53, 53, 0.6);
   `,
 
   mentionSuggestionsEntryText: css`
-    display: inline-block;
-    margin-left: 12px;
+    display: block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -89,6 +93,17 @@ export const defaultTheme: MentionPluginTheme = {
     font-size: 16px;
     font-weight: 700;
     color: #ffffff;
+  `,
+
+  mentionSuggestionsEntryUsername: css`
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 368px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #B5ADAD;
   `,
 
   mentionSuggestionsEntryAvatar: css`

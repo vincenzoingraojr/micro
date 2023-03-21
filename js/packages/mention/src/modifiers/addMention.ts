@@ -31,7 +31,7 @@ export default function addMention(
   let mentionReplacedContent = Modifier.replaceText(
     editorState.getCurrentContent(),
     mentionTextSelection,
-    `${mentionPrefix}${mention.name}`,
+    `${mentionPrefix}${mention.username}`,
     editorState.getCurrentInlineStyle(),
     entityKey
   );
