@@ -115,6 +115,8 @@ module.exports = {
       '@micro-text/editor/lib/plugin.css',
       '@micro-text/undo',
       '@micro-text/undo/lib/plugin.css',
+      '@draft-js-plugins/hashtag',
+      '@draft-js-plugins/hashtag/lib/plugin.css',
     ],
     'import/resolver': {
       node: true,
